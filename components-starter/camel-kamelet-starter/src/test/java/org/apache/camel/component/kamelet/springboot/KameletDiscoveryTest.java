@@ -37,7 +37,7 @@ import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.camel.spring.boot.CamelAutoConfiguration;
 
 
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @CamelSpringBootTest
 @SpringBootTest(
     classes = {

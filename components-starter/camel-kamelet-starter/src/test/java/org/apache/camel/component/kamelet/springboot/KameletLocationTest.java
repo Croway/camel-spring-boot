@@ -70,6 +70,7 @@ public class KameletLocationTest {
 
     @Test
     public void testTwo() throws Exception {
+        mock.reset();
         mock.expectedBodiesReceived("HELLO", "WORLD");
 
         template.sendBody("direct:start", "Hello");

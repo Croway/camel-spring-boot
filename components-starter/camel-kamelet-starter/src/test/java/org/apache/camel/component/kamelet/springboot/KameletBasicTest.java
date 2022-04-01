@@ -36,7 +36,7 @@ import org.springframework.test.annotation.DirtiesContext;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 
 
-@DirtiesContext
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 @CamelSpringBootTest
 @SpringBootTest(
     classes = {

@@ -38,6 +38,8 @@ import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
     classes = {
         CamelAutoConfiguration.class,
         KameletLocalBeanTypeTest.class,
+        KameletLocalBeanTypeTest.Bar.class,
+        KameletLocalBeanTypeTest.MyBar.class,
     }
 )
 

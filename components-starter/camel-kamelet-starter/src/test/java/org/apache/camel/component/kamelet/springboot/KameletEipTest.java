@@ -60,6 +60,8 @@ public class KameletEipTest {
 
     @Test
     public void testTwo() throws Exception {
+        mock.reset();
+
         mock.expectedBodiesReceived("AA", "BB");
 
         template.sendBody("direct:start", "A");

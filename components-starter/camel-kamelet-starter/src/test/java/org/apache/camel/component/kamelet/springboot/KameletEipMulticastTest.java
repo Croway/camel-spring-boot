@@ -18,11 +18,14 @@ package org.apache.camel.component.kamelet.springboot;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.model.ModelCamelContext;
 import org.apache.camel.model.MulticastDefinition;
 import org.apache.camel.model.ProcessorDefinitionHelper;
 import org.apache.camel.model.RouteDefinition;
 import org.apache.camel.spi.annotations.RoutesLoader;
 import org.apache.camel.test.junit5.CamelTestSupport;
+
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -58,6 +61,9 @@ public class KameletEipMulticastTest {
 
     @EndpointInject("mock:result")
     MockEndpoint mock;
+
+    @EndpointInject("mock:resultTwo")
+    MockEndpoint mockTwo;
 
     @Autowired
     CamelContext context;
@@ -102,7 +108,7 @@ public class KameletEipMulticastTest {
 
         mock.assertIsSatisfied();
 
-        RouteDefinition rd = context.getRouteDefinition("start");
+        RouteDefinition rd = ((ModelCamelContext) context).getRouteDefinition("start");
         MulticastDefinition md = ProcessorDefinitionHelper.findFirstTypeInOutputs(rd.getOutputs(), MulticastDefinition.class);
         Assertions.assertEquals(1, md.getOutputs().size());
     }
@@ -125,7 +131,7 @@ public class KameletEipMulticastTest {
                         .kamelet("echo").end()
                         .kamelet("reverse").end()
                         .end()
-                        .to("mock:result");
+                        .to("mock:resultTwo");
             }
 
             private Object reverse(Exchange exchange) {
@@ -136,14 +142,14 @@ public class KameletEipMulticastTest {
         });
         context.start();
 
-        mock.expectedBodiesReceived("CBA", "FED");
+        mockTwo.expectedBodiesReceived("CBA", "FED");
 
         template.sendBody("direct:start", "ABC");
         template.sendBody("direct:start", "DEF");
 
-        mock.assertIsSatisfied();
+        mockTwo.assertIsSatisfied();
 
-        RouteDefinition rd = ((Object) context).getRouteDefinition("start");
+        RouteDefinition rd = ((ModelCamelContext) context).getRouteDefinition("start");
         MulticastDefinition md = ProcessorDefinitionHelper.findFirstTypeInOutputs(rd.getOutputs(), MulticastDefinition.class);
         Assertions.assertEquals(2, md.getOutputs().size());
     }

@@ -59,6 +59,7 @@ public class KameletLocalBeanTest {
 
     @Test
     public void testTwo() throws Exception {
+        mock.reset();
         mock.expectedBodiesReceived("Hi Jack we are going to Shamrock",
                 "Hi Mary we are going to Moes");
 

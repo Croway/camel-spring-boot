@@ -20,6 +20,8 @@ import org.apache.camel.CamelContext;
 import org.apache.camel.RuntimeCamelException;
 import org.apache.camel.VetoCamelContextStartException;
 import org.apache.camel.builder.RouteBuilder;
+
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
@@ -40,7 +42,6 @@ import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
         KameletValidationTest.class,
     }
 )
-
 public class KameletValidationTest {
 
     @Autowired
@@ -48,6 +49,14 @@ public class KameletValidationTest {
 
     @Test
     public void validation() throws Exception {
+        assertThatExceptionOfType(RuntimeCamelException.class)
+                .isThrownBy(this::addRoute)
+                .withRootCauseExactlyInstanceOf(IllegalArgumentException.class)
+                .havingRootCause()
+                .withMessageContaining("bodyValue").withMessageContaining("setBody");
+    }
+
+    void addRoute() throws Exception {
         context.addRoutes(new RouteBuilder() {
             @Override
             public void configure() {
@@ -60,9 +69,5 @@ public class KameletValidationTest {
                         .to("kamelet:setBody/test");
             }
         });
-
-        assertThatExceptionOfType(RuntimeCamelException.class)
-                .isThrownBy(context::start)
-                .withCauseExactlyInstanceOf(VetoCamelContextStartException.class);
     }
 }
