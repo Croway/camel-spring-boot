@@ -57,6 +57,7 @@ import static org.springframework.core.annotation.AnnotationUtils.findAnnotation
 @AutoConfigureBefore(CamelAutoConfiguration.class)
 public class JasyptEncryptedPropertiesAutoconfiguration {
 
+
     @Bean
     public JasyptEncryptedPropertiesConfiguration JasyptEncryptedPropertiesAutoconfiguration(
             final ConfigurableEnvironment environment) {

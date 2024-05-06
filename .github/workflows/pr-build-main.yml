@@ -30,7 +30,7 @@ on:
 
 jobs:
   build:
-    if: github.repository == 'apache/camel-spring-boot'
+    if: github.repository == 'Croway/camel-spring-boot'
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -42,8 +42,14 @@ jobs:
         java-version: 17
         distribution: 'temurin'
         cache: 'maven'
-    - name: Maven Build
-      run: ./mvnw -l build.log -V --no-transfer-progress -Psourcecheck -Dci.env.name=github.com clean install
+    - name: Maven Test
+      uses: Croway/camel-actions/incremental-build@main
+      with:
+        mode: test
+        pr-id: ${{ github.event.number }}
+        github-token: ${{ secrets.GITHUB_TOKEN_TOKEN }}
+        skip-mvnd-install: 'true'
+        github-repo: Croway/camel-spring-boot
     - name: Archive Logs
       uses: actions/upload-artifact@v4
       if: always()
