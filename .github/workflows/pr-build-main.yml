@@ -22,6 +22,8 @@ on:
     branches:
       - main
       - camel-spring-boot-4.0.x
+      - test-gh-action
+      - test-gh-action-2
     paths-ignore:
       - README.md
       - Jenkinsfile
@@ -47,8 +49,8 @@ jobs:
       with:
         mode: test
         pr-id: ${{ github.event.number }}
-        github-token: ${{ secrets.GITHUB_TOKEN_TOKEN }}
-        skip-mvnd-install: 'true'
+        github-token: ${{ env.GITHUB_TOKEN_TOKEN }}
+        skip-mvnd-install: 'false'
         github-repo: Croway/camel-spring-boot
     - name: Archive Logs
       uses: actions/upload-artifact@v4

@@ -39,6 +39,7 @@ public class JasyptSpringEncryptedPropertiesParser extends DefaultPropertiesPars
 
     @Override
     public String parseProperty(String key, String value, PropertiesLookup properties) {
+        
         String originalValue = this.propertyResolver.getProperty(key);
         return isEncryptedValue(originalValue) ? decrypt(originalValue, this.stringEncryptor) : originalValue;
     }
