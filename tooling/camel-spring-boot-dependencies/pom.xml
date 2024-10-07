@@ -1264,11 +1264,6 @@
       </dependency>
       <dependency>
         <groupId>org.apache.camel.springboot</groupId>
-        <artifactId>camel-jsh-dsl-starter</artifactId>
-        <version>4.10.0</version>
-      </dependency>
-      <dependency>
-        <groupId>org.apache.camel.springboot</groupId>
         <artifactId>camel-jslt-starter</artifactId>
         <version>${project.version}</version>
       </dependency>
