@@ -162,6 +162,8 @@
         <jolokia-version>2.1.1</jolokia-version>
         <!-- Added for productized build - plexus versions used by patch maven plugin -->
         <openshift-maven-plugin-version>1.17.0.redhat-00003</openshift-maven-plugin-version>
+        <wiremock-spring-boot-version>3.0.2</wiremock-spring-boot-version>
+        <spring-session-hazelcast-version>3.3.2</spring-session-hazelcast-version>
     </properties>
 
     <dependencyManagement>

@@ -101,9 +101,19 @@ public class CamelRequestHandlerMapping extends RequestMappingHandlerMapping imp
             }
         }
 
-        RequestMappingInfo info = RequestMappingInfo.paths(model.getUri())
-                .methods(methods.toArray(new RequestMethod[0])).options(this.getBuilderConfiguration()).build();
-        return info;
+        RequestMappingInfo.Builder info = RequestMappingInfo
+                .paths(model.getUri())
+                .methods(methods.toArray(new RequestMethod[0]))
+                .options(this.getBuilderConfiguration());
+
+        if (model.getConsumes() != null) {
+            info.consumes(model.getConsumes().split(","));
+        }
+        if (model.getProduces() != null) {
+            info.produces(model.getProduces().split(","));
+        }
+
+        return info.build();
     }
 
 }
