@@ -291,6 +291,15 @@
                 <scope>import</scope>
             </dependency>
 
+            <!-- Using opentelemetry-bom, see CSB-5604 -->
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${opentelemetry-version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Netty bom -->
             <dependency>
                 <groupId>io.netty</groupId>
