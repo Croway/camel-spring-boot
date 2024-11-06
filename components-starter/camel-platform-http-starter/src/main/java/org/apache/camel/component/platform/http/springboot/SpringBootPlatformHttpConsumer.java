@@ -109,13 +109,6 @@ public class SpringBootPlatformHttpConsumer extends DefaultConsumer implements P
         exchange.setIn(new PlatformHttpMessage(exchange, binding, request, response));
         String contextPath = getEndpoint().getPath();
         exchange.getIn().setHeader(SpringBootPlatformHttpConstants.CONTEXT_PATH, contextPath);
-        exchange.getIn().setHeader(Exchange.HTTP_METHOD, request.getMethod());
-        // strip query parameters from the uri
-        exchange.getIn().setHeader(Exchange.HTTP_URI, request.getRequestURL().toString());
-        // uri is without the host and port
-        exchange.getIn().setHeader(Exchange.HTTP_URL, request.getRequestURI().toString());
-        exchange.getIn().setHeader(Exchange.HTTP_QUERY, request.getQueryString());
-        exchange.getIn().setHeader(Exchange.HTTP_RAW_QUERY, request.getQueryString());
         // set context path as header
         String httpPath = (String) exchange.getIn().getHeader(Exchange.HTTP_PATH);
         // here we just remove the CamelServletContextPath part from the HTTP_PATH
