@@ -131,7 +131,7 @@ public class SpringBootPlatformHttpEngineTest {
                 .post("/form/post")
                 .then()
                 .statusCode(200)
-                .body(is("{foo=bar, cheese=wine}"));
+                .body(is("foo=bar&cheese=wine"));
     }
 
     @Test
