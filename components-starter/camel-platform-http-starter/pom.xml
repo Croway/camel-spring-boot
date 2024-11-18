@@ -104,7 +104,6 @@
       <artifactId>camel-jsonpath-starter</artifactId>
       <scope>test</scope>
     </dependency>
-
     <!--START OF GENERATED CODE-->
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
