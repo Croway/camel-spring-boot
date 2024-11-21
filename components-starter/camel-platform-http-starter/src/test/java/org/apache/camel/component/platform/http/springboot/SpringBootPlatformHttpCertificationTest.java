@@ -85,6 +85,12 @@ public class SpringBootPlatformHttpCertificationTest extends PlatformHttpBase {
                             .bindingMode(RestBindingMode.auto)
                             .to("direct:rest");
 
+                    rest("rest").post("/test")
+                            .consumes("application/json,application/xml")
+                            .produces("application/json,application/xml")
+                            .bindingMode(RestBindingMode.auto)
+                            .to("direct:rest");
+
                     from("direct:rest")
                             .setBody(simple("Hello"));
 
@@ -166,7 +172,7 @@ public class SpringBootPlatformHttpCertificationTest extends PlatformHttpBase {
     public void nonSupportedContentType() {
         RestAssured.given()
                 .header("Content-Type", "notSupported")
-                .get("rest/test")
+                .post("rest/test")
                 .then()
                 .statusCode(415);
     }
@@ -180,6 +186,19 @@ public class SpringBootPlatformHttpCertificationTest extends PlatformHttpBase {
                 .then()
                 .statusCode(200)
                 .body(is("Hello"));
+    }
+
+    @Test
+    public void noContentTypeOkForGet() {
+        String body = RestAssured.given()
+                .get("rest/test")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        Assertions.assertThat(body).contains("Hello");
     }
 
     @Test
