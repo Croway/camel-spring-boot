@@ -51,7 +51,7 @@ import org.apache.cxf.spring.boot.autoconfigure.CxfAutoConfiguration;
                            CxfAutoConfiguration.class
     }, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
     properties = {
-              "camel.springboot.routes-include-pattern=file:src/test/resources/routes/multipartRoute.xml"}
+              "camel.main.routes-include-pattern=file:src/test/resources/routes/multipartRoute.xml"}
 )
     
 @ImportResource({
